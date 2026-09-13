@@ -434,7 +434,7 @@ tbody tr:hover .data-cell {
   background: var(--green-50);
 }
 
-/* Calculated values and human edits are marked, and never by colour alone. */
+/* Calculated values and human edits are marked, and never by color alone. */
 .data-cell.cell-derived .cell-text {
   color: var(--prov-logic);
 }

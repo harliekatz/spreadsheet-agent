@@ -28,19 +28,28 @@ export const vendors = [
   "Pacific Merchandising",
 ];
 
+/**
+ * Category, subcategory and the base product noun.
+ *
+ * The base carries a material or construction word and nothing else. Names are
+ * composed as `color finish base`, so a base that already contained its own
+ * adjective produced three stacked modifiers ("Charcoal Grande Everyday Cotton
+ * Tee"). Keeping the base to a material plus a noun gives names that read like
+ * catalog entries.
+ */
 const kinds: [string, string, string][] = [
-  ["Drinkware", "Mugs", "Studio Ceramic Mug"],
-  ["Drinkware", "Tumblers", "Trail Insulated Tumbler"],
-  ["Drinkware", "Water Bottles", "Cove Steel Bottle"],
-  ["Apparel", "T-Shirts", "Everyday Cotton Tee"],
-  ["Apparel", "Hoodies", "Weekend Fleece Hoodie"],
-  ["Bags", "Tote Bags", "Market Canvas Tote"],
-  ["Office", "Notebooks", "Field Notes Journal"],
-  ["Promotional Products", "Pens", "Contour Ballpoint Pen"],
-  ["Tech Accessories", "Phone Accessories", "Orbit Phone Stand"],
-  ["Accessories", "Travel Accessories", "Voyage Luggage Tag"],
-  ["Home", "Blankets", "Hearth Woven Throw"],
-  ["Office", "Desk Accessories", "Arc Desk Organizer"],
+  ["Drinkware", "Mugs", "Ceramic Mug"],
+  ["Drinkware", "Tumblers", "Insulated Tumbler"],
+  ["Drinkware", "Water Bottles", "Steel Bottle"],
+  ["Apparel", "T-Shirts", "Cotton Tee"],
+  ["Apparel", "Hoodies", "Fleece Hoodie"],
+  ["Bags", "Tote Bags", "Canvas Tote"],
+  ["Office", "Notebooks", "Bound Notebook"],
+  ["Promotional Products", "Pens", "Ballpoint Pen"],
+  ["Tech Accessories", "Phone Accessories", "Phone Stand"],
+  ["Accessories", "Travel Accessories", "Luggage Tag"],
+  ["Home", "Blankets", "Woven Throw"],
+  ["Office", "Desk Accessories", "Desk Organizer"],
 ];
 
 const colors = [
@@ -55,19 +64,20 @@ const colors = [
   "Cream",
 ];
 
+/** One finish word sits between the color and the base noun. */
 const finishes = [
   "Classic",
   "Matte",
-  "Gloss",
+  "Everyday",
   "Textured",
   "Ribbed",
   "Brushed",
   "Heritage",
   "Compact",
-  "Grande",
-  "Softline",
-  "Pro",
+  "Lightweight",
   "Traveler",
+  "Studio",
+  "Field",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -88,7 +98,7 @@ export const fieldMeta: FieldMeta[] = [
     name: "Product Name",
     path: path("name"),
     type: "string",
-    description: "Display name, composed of colour, finish and product kind.",
+    description: "Display name, composed of color, finish and product kind.",
     aliases: ["product name", "product", "name", "title"],
   },
   {

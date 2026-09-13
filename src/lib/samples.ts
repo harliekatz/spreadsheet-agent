@@ -16,7 +16,7 @@ import type { Sheet } from "./types";
  * version stamp an old seed would survive every future change and the app would
  * keep showing data that no longer matches the code.
  */
-export const SEED_VERSION = "2026-09-13";
+export const SEED_VERSION = "2026-09-14";
 
 const specs: [title: string, folder: string, request: string][] = [
   ["Low Inventory Report", "Inventory", "low inventory products limit to 250"],

@@ -58,7 +58,7 @@ const STOP_WORDS = new Set(
     .filter(Boolean),
 );
 
-const normalise = (value: string) =>
+const normalize = (value: string) =>
   value
     .toLowerCase()
     .replace(/[–—]/g, "-")
@@ -80,7 +80,7 @@ const aliasIndex = fieldMeta
 
 /** Field names explicitly mentioned in a phrase, longest alias first. */
 export function mentionedFields(phrase: string): Field[] {
-  let remaining = ` ${normalise(phrase)} `;
+  let remaining = ` ${normalize(phrase)} `;
   const found: Field[] = [];
   for (const { field, alias } of aliasIndex) {
     const pattern = new RegExp(
@@ -568,7 +568,7 @@ const emptyPlan = (request: string, source: QueryPlan["source"]): QueryPlan => (
 
 export function interpret(request: string, options: InterpretOptions = {}): QueryResult {
   const { sheet, columns: explicitColumns = "", rowCriteria = "" } = options;
-  const text = normalise(`${request} ${rowCriteria}`);
+  const text = normalize(`${request} ${rowCriteria}`);
   const editing = !!sheet;
   const source: QueryPlan["source"] = sheet?.sourceFile
     ? "document"
@@ -776,7 +776,7 @@ export function interpret(request: string, options: InterpretOptions = {}): Quer
     plan.columns = columns;
 
     /* ---- did we understand anything at all? ---- */
-    const recognised = filters.length > 0 || !!sort || explicit.fields.length > 0;
+    const recognized = filters.length > 0 || !!sort || explicit.fields.length > 0;
     // Creating a sheet from scratch can fall back to "everything in the
     // catalog". Editing an existing sheet cannot: a command we did not
     // understand must never silently replace the user's rows.
@@ -785,7 +785,7 @@ export function interpret(request: string, options: InterpretOptions = {}): Quer
       /products?|catalog|sheet|report|pricing|vendor|inventory|merchandising|everything|all/.test(
         text,
       );
-    if (!recognised && !describesWholeCatalog)
+    if (!recognized && !describesWholeCatalog)
       throw new RequestError(
         editing
           ? "That command did not match anything. Try a filter, “Add vendor contact”, or “Sort by margin highest to lowest”."
@@ -883,7 +883,7 @@ export function runPlan(plan: QueryPlan, sheet?: Sheet): QueryResult {
   ];
 
   return {
-    title: sheet?.title ?? titleFor(normalise(plan.request), executed.filters),
+    title: sheet?.title ?? titleFor(normalize(plan.request), executed.filters),
     columns: executed.columns.map((c) => c.field),
     rows,
     action: executed.intent,
