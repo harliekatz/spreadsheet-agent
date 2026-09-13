@@ -1,0 +1,387 @@
+/**
+ * App shell.
+ *
+ * Three grid tracks: navigation, workspace, assistant. The assistant is a
+ * track rather than an overlay, so opening, closing and resizing it reflow the
+ * spreadsheet instead of covering it.
+ */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--surface-page);
+}
+
+.workspace-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border-inline: 1px solid var(--line);
+}
+
+/* Navigation --------------------------------------------------------- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: 100%;
+  padding: var(--s3) var(--s2) var(--s2);
+  background: var(--surface-page);
+  overflow-y: auto;
+  transition: width 0.16s ease;
+}
+
+.sidebar.is-rail {
+  width: var(--rail-width);
+  align-items: center;
+  padding-inline: var(--s1);
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: 40px;
+  padding-left: var(--s2);
+  margin-bottom: var(--s4);
+}
+
+.sidebar.is-rail .sidebar-head {
+  flex-direction: column;
+  padding-left: 0;
+  gap: var(--s3);
+  margin-bottom: var(--s3);
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-width: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  min-height: 34px;
+  padding: 0 var(--s2);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-align: left;
+}
+
+.nav-item svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--text-muted);
+}
+
+.nav-item:hover:not(:disabled) {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.nav-item.is-active {
+  background: var(--green-50);
+  color: var(--green-700);
+  font-weight: 600;
+}
+
+.nav-item.is-active svg {
+  color: var(--green-600);
+}
+
+.nav-item.is-primary {
+  background: var(--green-600);
+  color: #fff;
+  margin-bottom: var(--s3);
+  font-weight: 600;
+}
+
+.nav-item.is-primary svg {
+  color: #fff;
+}
+
+.nav-item.is-primary:hover:not(:disabled) {
+  background: var(--green-700);
+  color: #fff;
+}
+
+.sidebar.is-rail .nav-item {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.nav-group-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--s4) var(--s2) var(--s1);
+}
+
+.nav-group-label button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+.nav-group-label button:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+/* The bin and the disclosure sit at the bottom, out of the main flow. */
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: var(--s3);
+  width: 100%;
+}
+
+.sidebar.is-rail .sidebar-bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-foot {
+  padding: var(--s3) var(--s2) var(--s1);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.nav-count {
+  margin-left: auto;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Toast -------------------------------------------------------------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--s5);
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  max-width: min(560px, calc(100vw - 32px));
+  padding: var(--s2) var(--s2) var(--s2) var(--s4);
+  border-radius: var(--radius-lg);
+  background: var(--text);
+  color: #fff;
+  box-shadow: var(--shadow-overlay);
+  font-size: var(--text-base);
+}
+
+.toast-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 28px;
+  padding: 0 var(--s2);
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  flex: none;
+}
+
+.toast-action:hover {
+  background: rgb(255 255 255 / 0.24);
+}
+
+.toast-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius);
+  color: rgb(255 255 255 / 0.7);
+  flex: none;
+}
+
+.toast-close:hover {
+  background: rgb(255 255 255 / 0.14);
+  color: #fff;
+}
+
+.toast.tone-warning {
+  background: var(--amber-600);
+}
+
+.toast.tone-error {
+  background: var(--red-600);
+}
+
+/* Overflow menu ------------------------------------------------------ */
+.overflow-menu {
+  position: relative;
+}
+
+.overflow-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  z-index: 40;
+  min-width: 180px;
+  padding: var(--s1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-overlay);
+}
+
+.overflow-popover.align-right {
+  right: 0;
+}
+
+.overflow-popover.align-left {
+  left: 0;
+}
+
+.overflow-popover button {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  width: 100%;
+  min-height: 34px;
+  padding: 0 var(--s2);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  text-align: left;
+}
+
+.overflow-popover button:hover:not(:disabled) {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.overflow-popover button.is-danger {
+  color: var(--red-600);
+}
+
+.overflow-popover button.is-danger:hover {
+  background: var(--red-50);
+}
+
+/* Empty states ------------------------------------------------------- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s8) var(--s5);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.empty-state h3 {
+  color: var(--text);
+  font-size: var(--text-md);
+}
+
+.empty-state p {
+  max-width: 42ch;
+}
+
+.empty-state .button {
+  margin-top: var(--s2);
+}
+
+.fatal-error {
+  max-width: 52ch;
+  margin: 14vh auto;
+  padding: 0 var(--s5);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.fatal-error h1 {
+  margin: var(--s3) 0 var(--s2);
+  font-size: var(--text-xl);
+  color: var(--text);
+}
+
+.fatal-error pre {
+  margin: var(--s4) 0;
+  padding: var(--s3);
+  overflow-x: auto;
+  text-align: left;
+  border-radius: var(--radius);
+  background: var(--surface-muted);
+  font-size: var(--text-sm);
+}
+
+.fatal-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--s2);
+}
+
+/* Narrower desktops -------------------------------------------------- */
+@media (max-width: 1200px) {
+  .header-action {
+    display: none;
+  }
+
+  .header-overflow {
+    display: block;
+  }
+}
+
+@media (min-width: 1201px) {
+  .header-overflow {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .assistant-panel {
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: 30;
+    width: min(var(--assistant-width), 100vw) !important;
+    box-shadow: var(--shadow-overlay);
+  }
+
+  .panel-resize {
+    display: none;
+  }
+}

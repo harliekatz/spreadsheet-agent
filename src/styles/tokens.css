@@ -1,0 +1,89 @@
+/**
+ * Design tokens.
+ *
+ * Green is reserved for four things and nothing else: selection, active
+ * navigation, primary actions, and successful completion. Everything else is
+ * warm neutral, so the green actually means something when it appears.
+ */
+:root {
+  /* Brand green, used sparingly */
+  --green-50: #eef6f1;
+  --green-100: #d6ebdf;
+  --green-200: #aed7c0;
+  --green-500: #17794c;
+  --green-600: #12603c;
+  --green-700: #0d4a2e;
+
+  /* Warm neutral surfaces */
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-page: #fbfaf8;
+  --surface-muted: #f5f4f1;
+  --surface-sunken: #edece8;
+
+  /* Text, all AA or better on surface and surface-muted */
+  --text: #1a1a17;
+  --text-secondary: #4a4a44;
+  --text-muted: #63625b;
+
+  /* Hairlines. Used sparingly; prefer background steps to outlines. */
+  --line: #e4e2dd;
+  --line-strong: #d1cec7;
+
+  /* Status. Never the only signal; always paired with an icon or a word. */
+  --amber-50: #fdf6e7;
+  --amber-500: #a86a00;
+  --amber-600: #8a5600;
+  --red-50: #fdf2f0;
+  --red-600: #a5281b;
+  --info-50: #eef3f8;
+  --info-600: #2f5d8c;
+
+  /* Provenance accents: source data, generated logic, human edit */
+  --prov-source: #2b5581;
+  --prov-logic: #12603c;
+  --prov-edit: #7d4e00;
+
+  --highlight-row: #f2f8f4;
+
+  /* Restrained radii */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+
+  /* Shadows establish layers only. Nothing decorative. */
+  --shadow-raised: 0 1px 2px rgb(26 26 23 / 0.06);
+  --shadow-panel: 0 1px 3px rgb(26 26 23 / 0.08), 0 8px 24px rgb(26 26 23 / 0.06);
+  --shadow-overlay: 0 12px 32px rgb(26 26 23 / 0.16);
+
+  /* 8px spacing scale */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+
+  /* Layout */
+  --rail-width: 56px;
+  --sidebar-width: 232px;
+  --assistant-width: 400px;
+  --row-number-width: 44px;
+  --row-height: 30px;
+  --header-height: 52px;
+
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Type scale */
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-base: 13px;
+  --text-md: 14px;
+  --text-lg: 17px;
+  --text-xl: 21px;
+  --text-2xl: 26px;
+}
