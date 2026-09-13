@@ -2,7 +2,7 @@
 
 A merchandising workspace where you describe the sheet you need in plain language, review the logic before anything runs, and then edit the result like a normal spreadsheet. Every value can be traced back to the record and field it came from.
 
-**Demo.** Not deployed yet. [Run it locally](#run-it-locally) in about a minute.
+**Demo.** [spreadsheet-agent.netlify.app](https://spreadsheet-agent.netlify.app)
 
 ![A built sheet with a corrected product name selected, and the panel showing the current value, the catalog value it replaced, and why the row and column are there](docs/screenshots/edited-cell.png)
 
